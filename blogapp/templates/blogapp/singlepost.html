@@ -1,0 +1,111 @@
+{% extends 'blogapp/index.html' %}
+{% load static %}
+{% block main %}
+<div class="row tm-row">
+    <div class="col-12">
+        <hr class="tm-hr-primary tm-mb-55">
+        <img width="800px" class="img-fluid tm-mb-40" height="400px" src="{{data.picture.url}}" alt="" srcset="">
+    </div>
+</div>
+<div class="row tm-row">
+    <div class="col-lg-8 tm-post-col">
+        <div class="tm-post-full">                    
+            <div class="mb-4">
+                <h2 class="pt-2 tm-color-primary tm-post-title">{{data.title}}</h2>
+                <p class="tm-mb-40">{{data.created_at}} posted by {{data.author.first_name}} {{data.author.last_name}}</p>
+                <p>
+                    {{data.content}}
+                </p>
+                <span class="d-block text-right tm-color-primary">{{data.categories}}</span>
+            </div>
+            
+            <!-- Comments -->
+            <div>
+                <h2 class="tm-color-primary tm-post-title">Comments</h2>
+                <hr class="tm-hr-primary tm-mb-45">
+                {% if cdata %}
+                {% for cd in cdata  %}
+                <div class="tm-comment-reply tm-mb-45">
+                    <hr>
+                    <div class="tm-comment">
+                        <figure class="tm-comment-figure">
+                            <img src="{{cd.author.img.url}}" alt="Image" class="imgaksh">
+                            <figcaption class="tm-color-primary text-left">{{cd.author.first_name}} {{cd.author.last_name}}</figcaption>    
+                        </figure>                     
+                    </div>       
+                        <p>
+                           {{cd.content}}
+                        </p>             
+                        
+                    <div class="d-flex justify-content-between">
+                        <span class="ahsdjkasdh">{{ cd.created_at|date:"F j, Y" }}</span>
+                        {% if user.is_authenticated and user == cd.author %}
+                        <div class="dropdown" tabindex="0">
+                            <div class="dots-container">
+                              <div class="dot"></div>
+                              <div class="dot"></div>
+                              <div class="dot"></div>
+                            </div>
+                            <div class="dropdown-content">
+                              {% comment %} <a href="">Edit</a> {% endcomment %}
+                              <a href="{% url 'Delete' cd.id %}">Delete</a>
+                            </div>
+                          </div>
+                        {% endif %}                    
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <p>
+                <h5 class="hagdhgash">No comments yet</h5>
+                </p>
+                {% endif %}
+
+                <form action="{% url 'Singlepost' data.title %}" method="post" class="mb-5 tm-comment-form">
+                    {% csrf_token %}
+                    <h2 class="tm-color-primary tm-post-title mb-4">Your comment</h2>
+                
+                    <div class="form-group">
+                        <small class="errorr">{{form.content.errors|striptags}}</small>
+                        {{ form.content }}
+                    </div>
+                    {% if user.is_authenticated %} 
+                    <div class="text-left">
+                        <button class="tm-btn tm-btn-primary tm-btn-small2">Post</button>
+                    </div>
+                    {% else %}
+                    <p>
+                        <h5 class="hagdhgashd">Please login or create a account to post a comment</h5>
+                        </p>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+    <aside class="col-lg-4 tm-aside-col">
+        <div class="tm-post-sidebar">
+            <hr class="mb-3 tm-hr-primary">
+            <h2 class="mb-4 tm-post-title tm-color-primary">Categories</h2>
+            <ul class="tm-mb-75 pl-5 tm-category-list">
+                {% for l in links %}
+                <li><a href="{% url 'Category' l %}" class="tm-color-primary">{{ l }}</a></li>
+                {% endfor %}
+            </ul>
+            <hr class="mb-3 tm-hr-primary">
+            <h2 class="tm-mb-40 tm-post-title tm-color-primary">Related Posts</h2>
+            {% for rp in rpost  %}
+            <a href="#" class="d-block tm-mb-40">
+                <figure>
+                    <img src="{{ rp.picture.url }}" alt="Image" class="mb-3 img-fluid fixed-size-img">
+                    <figcaption class="tm-color-primary">{{ rp.title }}</figcaption>
+                    <p class="tm-pt-25">
+                        {{ rp.content | truncatewords:8 }}
+                    </p>
+                </figure>
+            </a>
+            {% endfor %}
+        </div>                    
+    </aside>
+</div>
+{% endblock main %}
+

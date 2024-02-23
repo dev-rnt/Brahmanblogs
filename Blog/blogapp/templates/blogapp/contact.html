@@ -1,0 +1,130 @@
+{% extends 'blogapp/index.html' %}
+{% load static %}
+{% block main %} <div class="row tm-row tm-mb-45">
+    <div class="col-12">
+        <hr class="tm-hr-primary tm-mb-55">
+    </div>                
+</div> 
+<style>
+    /* CSS for the thank you message box */
+    .thank-you-box {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        z-index: 9999;
+    }
+</style>
+<div class="row tm-row tm-mb-120">
+    <div class="col-12">
+        <h2 class="tm-color-primary tm-post-title tm-mb-60">Contact Us</h2>
+    </div>
+    <div class="col-lg-7 tm-contact-left">
+        <form id="contact-form" method="POST" action="" class="mb-5 ml-auto mr-0 tm-contact-form"> {% csrf_token %}                   
+            <div class="form-group row mb-4">
+                <label for="name" class="col-sm-3 col-form-label text-left tm-color-primary">Name</label>
+                <div class="col-sm-9">
+                  {{form.name}}       
+                  <small class="errorr">{{form.name.errors|striptags}}</small>                  
+                </div>
+            </div>
+            <div class="form-group row mb-4">
+                <label for="email" class="col-sm-3 col-form-label text-left tm-color-primary">Email</label>
+                <div class="col-sm-9">
+                    {{form.email}}       
+                  <small class="errorr">{{form.email.errors|striptags}}</small>   
+                </div>
+            </div>
+            <div class="form-group row mb-4">
+                <label for="subject" class="col-sm-3 col-form-label text-left tm-color-primary">Subject</label>
+                <div class="col-sm-9">
+                    {{form.subject}}       
+                  <small class="errorr">{{form.subject.errors|striptags}}</small>   
+                </div>
+            </div>
+            <div class="form-group row mb-5">
+                <label for="message" class="col-sm-3 col-form-label text-left tm-color-primary">Message</label>
+                <div class="col-sm-9">
+                    {{form.message}}       
+                    <small class="errorr">{{form.message.errors|striptags}}</small>                                  
+                </div>
+            </div>
+            <div class="form-group row text-left">
+                <div class="col-12">
+                    <button class="tm-btn tm-btn-primary tm-btn-small">Send</button>                        
+                </div>                            
+            </div>                                
+        </form>
+        <div id="thank-you-box" class="thank-you-box">
+            <p>Thank you for your message!</p>
+        </div>
+        <script>
+            // JavaScript to handle form submission
+            document.getElementById('contact-form').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent the default form submission
+        
+                // Submit the form using AJAX
+                var formData = new FormData(this);
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '{% url "Contact" %}', true);
+                xhr.onload = function() {
+                    if (xhr.status == 200) {
+                        // Show the thank you message box
+                        document.getElementById('thank-you-box').style.display = 'block';
+        
+                        // Hide the thank you message box after 5 seconds
+                        setTimeout(function() {
+                            document.getElementById('thank-you-box').style.display = 'none';
+                            // Redirect to another page
+                            window.location.href = '{% url 'Contact' %}';  // Replace '/another-page' with the URL of the page you want to redirect to
+                        }, 4000);
+                    }
+                };
+                xhr.send(formData);
+            });
+        </script>
+        
+    </div>
+    <div class="col-lg-5 tm-contact-right">
+        <address class="mb-4 tm-color-gray">
+           D-190 sector I, L.D.A colony kanpur road, Lucknow , Uttar Pradesh 
+        </address>
+        <span class="d-block">
+            Phone:
+            <a href="tel:060-070-0980" class="tm-color-gray">+91 9695953183</a>
+        </span>
+        <span class="mb-4 d-block">
+            Email:
+            <a href="mailto:info@company.com" class="tm-color-gray">rudra2917@gmail.com</a>
+        </span>
+        <ul class="tm-social-links">
+            <li class="mb-2">
+                <a href="https://facebook.com" class="d-flex align-items-center justify-content-center">
+                    <i class="fab fa-facebook"></i>
+                </a>
+            </li>
+            <li class="mb-2">
+                <a href="https://twitter.com" class="d-flex align-items-center justify-content-center">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </li>
+            <li class="mb-2">
+                <a href="https://youtube.com" class="d-flex align-items-center justify-content-center">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </li>
+            <li class="mb-2">
+                <a href="https://instagram.com" class="d-flex align-items-center justify-content-center mr-0">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>      
+{% endblock main %}
+

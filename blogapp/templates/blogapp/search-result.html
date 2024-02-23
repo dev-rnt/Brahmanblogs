@@ -1,0 +1,36 @@
+{% extends 'blogapp/index.html' %}
+{% load static %}
+
+
+{% block main %}
+<div class="text-left">
+    <h2 class="tm-color-success tm-post-title mb-4">Search result for '{{search_text}}'</h2> 
+</div>      
+<hr class="tm-hr-primary">
+<div class="row tm-row">
+    <style>
+        .akjsdklasjdlksa{
+            color:grey;
+            
+        }
+    </style>
+    {% for d in search_result %}
+    <article class="col-12 col-md-6 tm-post">
+        <a href="{{ d.get_url }}" class="effect-lily tm-post-link tm-pt-60">
+            <div class="tm-post-link-inner">
+                <img src="{{ d.picture.url }}" alt="Image" class="img-fluid fixed-size-img">                            
+            </div>
+            <h2 class="tm-pt-30 tm-color-primary tm-post-title">{{ d.title }}</h2>
+            <small class="akjsdklasjdlksa">{{d.content | truncatewords:15}}</small>
+        </a>
+        <div class="d-flex justify-content-between tm-pt-45">
+            <span class="tm-color-primary"><a href="{% url 'Category' d.categories %}">{{d.categories}}</a></span><br>
+            <span class="ahsdjkasdh">{{ d.created_at|date:"F j, Y" }}</span>
+        </div>
+        <hr>
+    </article>
+   {% endfor %}
+
+
+</div>
+{% endblock main %}

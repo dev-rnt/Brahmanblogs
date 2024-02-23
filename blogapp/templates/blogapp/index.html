@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Home</title>
+	<link rel="stylesheet" href="{% static 'blogapp/fontawesome/css/all.min.css' %}"> 
+	<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet"> <!-- https://fonts.google.com/ -->
+    <link href="{% static 'blogapp/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'blogapp/css/templatemo-xtra-blog.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'blogapp/css/custom.css' %}">
+</head>
+<body>
+    <style>
+        @media (max-width: 767px) {
+            .form-inline .form-control.tm-search-input {
+                width: 84%;
+                max-width: 375px;
+                margin-right: 7px;
+            }
+        }        
+        .aksdlksaj{
+            font-size:16px;
+            margin-bottom:30px;
+          }
+        .titlesss {
+            color:grey;
+            font-size:17px;
+            margin-top:50px;
+        }  
+    </style>
+ {% include 'blogapp/sidebar.html' %}
+ <div class="container-fluid">
+    <div class="row justify-content-end">
+        <div class="col-auto">
+          
+            {% if request.user.is_authenticated %}
+                <small class="titlesss">Welcome {{ request.user.first_name }} {{ request.user.last_name }}</small>
+                <div>
+                    <a href="{% url 'Logout' %}">Logout</a> <span class="dark-transp"> | </span>
+                    <a href="{% url 'Accmanagement' %}">Profile</a>
+                </div>
+                <!-- Include the logout link here -->
+            {% else %}
+                <small class="titlesss">Welcome guest!</small>
+                <div class="text-right">
+                    <a class="aksdlksaj" href="{% url 'Signin' %}">Sign in</a> <span class="dark-transp"> | </span>
+                    <a class="aksdlksaj" href="{% url 'Register' %}">Register</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+                <main class="tm-main">
+                <!-- Search form -->
+                {% block search %}
+                <div class="row tm-row">
+                    <div class="col-12">
+                    
+                        <form method="GET" action="{% url 'Search' %}" class="form-inline tm-mb-60 tm-search-form">                
+                            <input class="form-control tm-search-input" required name="searchtext" type="text" placeholder="Search..." aria-label="Search">
+                            <button class="tm-search-button" type="submit">
+                                <i class="fas fa-search tm-search-icon" aria-hidden="true"></i>
+                            </button>                                
+                        </form>
+                    </div>                
+                </div>
+            {% endblock search %}            
+            {% block main %}
+
+            
+            {% endblock main%}
+            <footer class="row tm-row">
+                <hr class="col-12">
+                <div class="col-md-6 col-12 tm-color-gray">
+                    Design: <a rel="nofollow" target="_parent" href="https://templatemo.com" class="tm-external-link">Rudra Narayan Tiwari</a>
+                </div>
+                <div class="col-md-6 col-12 tm-color-gray tm-copyright">
+                    Copyright 2024 BrahmanBlogs Company Ltd.
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="{% static 'blogapp/js/jquery.min.js' %}"></script>
+    <script src="{% static 'blogapp/js/templatemo-script.js' %}"></script>
+    <script src="{% static 'blogapp/js/custom.js' %}"></script>
+</body>
+</html>
+

@@ -1,0 +1,51 @@
+{% extends 'blogapp/index.html' %}
+{% load static %}
+
+{% block search %}
+<style>
+    .tm-pt-45 {
+        padding-top: 6px;
+    }
+</style>
+<div class="text-left">
+    <h2 class="tm-color-primary tm-post-title mb-4">Manage your posted blogs</h2> 
+</div>      
+<hr class="tm-hr-primary">
+{% endblock search %}
+
+
+{% block main %}
+{% if data %}
+<div class="row tm-row">
+    {% for d in data %}
+    <article class="col-12 col-md-6 tm-post">
+        <a href="{{ d.get_url }}" class="effect-lily tm-post-link tm-pt-60">
+            <div class="tm-post-link-inner">
+                <img src="{{ d.picture.url }}" alt="Image" class="img-fluid fixed-size-img">                            
+            </div>
+            <h2 class="tm-pt-30 tm-color-primary tm-post-title">{{ d.title }}</h2>
+        </a>
+        
+        <div class="d-flex justify-content-between tm-pt-45">
+            <span class="tm-color-primary">{{d.categories}}</span><br>
+            <span class="tm-color-primary">{{d.created_at}}</span>
+        </div>
+        <button onclick="window.location.href='{% url 'Updateblog' d.id %}'" class="btn btn-primary btn-sm">Update</button>
+        <button onclick="return confirm('Are you sure you want to delete this blog?')" class="btn btn-danger btn-sm">Delete</button>
+        <hr>
+    </article>
+   {% endfor %}
+{% else %}
+<small>No blogs posted yet</small>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+{% endif %}
+
+</div>
+{% endblock main %}

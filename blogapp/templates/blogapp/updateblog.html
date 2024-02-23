@@ -1,0 +1,46 @@
+{% extends 'blogapp/index.html' %}
+{% load static %}
+
+{% block search %}
+<style>
+    .tm-pt-45 {
+        padding-top: 6px;
+    }
+</style>
+<div class="text-left">
+    <h2 class="tm-color-primary tm-post-title mb-4">Update your blog</h2> 
+</div>      
+<hr class="tm-hr-primary">
+{% endblock search %}
+
+
+{% block main %}
+
+<div class="row tm-row">
+    <div class="col-12">
+        <img width="800px" class="img-fluid tm-mb-40" height="400px" src="{{post.picture.url}}" alt="" srcset="">
+    </div>
+</div>
+<form method='POST' enctype="multipart/form-data" novalidate > {% csrf_token %}
+     <div class="form-group">
+         {{form.title.label_tag}}
+         {{ form.title }}<small class="errorr">{{form.title.errors|striptags}}</small>
+ 
+     </div>
+     <div class="form-group">
+         {{form.content.label_tag}}
+         {{ form.content }}<small class="errorr">{{form.content.errors|striptags}}</small>
+     </div>
+     <div class="form-group">
+         {{form.categories.label_tag}}
+         {{ form.categories }}<small class="errorr">{{form.categories.errors|striptags}}</small>
+     </div>
+     <div class="form-group">
+        {{form.picture.label_tag}}
+        {{ form.picture }}<small class="errorr">{{form.picture.errors|striptags}}</small>
+    </div>
+     <div class="text-left">
+         <button class="btn btn-primary">Update blog</button>                        
+     </div>                                
+ </form>  
+{% endblock main %}

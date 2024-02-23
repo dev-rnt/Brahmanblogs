@@ -1,0 +1,100 @@
+{% load static %}
+<style>
+    .rounded-circle {
+        border-radius: 100%; /* Make the image round */
+        overflow: hidden; /* Hide any content that overflows the rounded corners */
+    }
+    .imgkjahskj{
+        
+    }
+</style>
+<header class="tm-header" id="tm-header">
+    <div class="tm-header-wrapper">
+        <button class="navbar-toggler" type="button" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="tm-site-header">
+            <div class="mb-3 mx-auto tm-site-logo"><img class="imgkjahskj" src="{% static 'blogapp/img/om.jpg' %}" alt="" srcset=""></div>            
+            <h1 class="text-center">BrahmanBlogs</h1>
+        </div>
+        {% comment %} <i class="fas fa-camera-retro"></i> {% endcomment %}
+        <nav class="tm-nav" id="tm-nav">     
+            {% if user.is_authenticated %} 
+            <ul>
+                <li class="tm-nav-item {% if request.path == '/' %}active{% endif %}"><a href="{% url 'Home' %}" class="tm-nav-link">
+                    <i class="fas fa-home"></i>
+                    Home
+                </a></li>
+
+               <li class="tm-nav-item {% if request.path == '/managebogs/' %}active{% endif %}"><a href="{% url 'Managebogs' %}" class="tm-nav-link">
+                    <i class="fas fa-pen"></i>
+                    Manage Blogs
+                </a></li> 
+
+                <li class="tm-nav-item {% if request.path == '/addblog/' %}active{% endif %}"><a href="{% url 'Addblog' %}" class="tm-nav-link">
+                    <i class="fas fa-image"></i>
+                    Add Blog
+                </a></li> 
+
+                <li class="tm-nav-item {% if request.path == '/about/' %}active{% endif %}"><a href="{% url 'About' %}" class="tm-nav-link">
+                    <i class="fas fa-users"></i>
+                    About BrahmanBlogs
+                </a></li>
+
+                <li class="tm-nav-item {% if request.path == '/contact/' %}active{% endif %}"><a href="{% url 'Contact' %}" class="tm-nav-link">
+                    <i class="far fa-comments"></i>
+                    Contact Us
+                </a></li>
+
+                <li class="tm-nav-item {% if request.path == '/accmanagement/' %}active{% endif %}"><a href="{% url 'Accmanagement' %}" class="tm-nav-link">
+                    <i class="far fa-user"></i>
+                    Account Management
+                </a></li>
+            </ul>
+            {% else %}
+            <ul>
+                <li class="tm-nav-item {% if request.path == '/' %}active{% endif %}"><a href="{% url 'Home' %}" class="tm-nav-link">
+                    <i class="fas fa-home"></i>
+                    Home
+                </a></li>
+
+                <li class="tm-nav-item {% if request.path == '/about/' %}active{% endif %}"><a href="{% url 'About' %}" class="tm-nav-link">
+                    <i class="fas fa-users"></i>
+                    About BrahmanBlogs
+                </a></li>
+
+                <li class="tm-nav-item {% if request.path == '/contact/' %}active{% endif %}"><a href="{% url 'Contact' %}" class="tm-nav-link">
+                    <i class="far fa-comments"></i>
+                    Contact Us
+                </a></li>
+
+                <li class="tm-nav-item {% if request.path == '/signin/' %}active{% endif %}"><a href="{% url 'Signin' %}" class="tm-nav-link">
+                    <i class="far fa-user"></i>
+                    Account Management
+                </a></li>
+
+            </ul>
+            {% endif %}      
+        </nav>
+        <div class="tm-mb-65">
+            <a rel="nofollow" href="https://fb.com/templatemo" class="tm-social-link">
+                <i class="fab fa-facebook tm-social-icon"></i>
+            </a>
+            <a href="https://twitter.com" class="tm-social-link">
+                <i class="fab fa-twitter tm-social-icon"></i>
+            </a>
+            <a href="https://instagram.com" class="tm-social-link">
+                <i class="fab fa-instagram tm-social-icon"></i>
+            </a>
+            <a href="https://linkedin.com" class="tm-social-link">
+                <i class="fab fa-linkedin tm-social-icon"></i>
+            </a>
+        </div>
+        <p class="tm-mb-80 pr-5 text-white">
+            Brahman Blogs stands as a digital sanctuary for enthusiasts, intellectuals, and seekers of knowledge alike. 
+            Nestled within its virtual pages lies a treasure trove of diverse narratives, each carefully curated to inspire, 
+            educate, and entertain. With an unwavering commitment to authenticity and depth
+            </p>                            
+        </p>
+    </div>
+</header>

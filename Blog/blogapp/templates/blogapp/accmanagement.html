@@ -1,0 +1,74 @@
+{% extends 'blogapp/index.html' %}
+{% load static %}
+{% block search %}
+<style>
+    .tm-pt-45 {
+        padding-top: 6px;
+    }
+
+    .welcome-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .welcome-heading {
+        flex: 1; /* Allow the heading to take up remaining space */
+        margin-right: 20px; /* Adjust margin as needed */
+    }
+    .ahksgdhaks{
+        color: grey;
+        font-size: 17px;
+        text-decoration: solid;
+              
+      }
+</style>
+
+<div class="welcome-container">
+    <div class="welcome-heading">
+        <h2 class="tm-color-primary tm-post-title mb-4">Welcome {{ request.user.first_name }} {{ request.user.last_name }}</h2>
+       <h5 class="ahksgdhaks">Blog posted:{{count}}</h5>
+    </div>
+    <div class="text-right">
+        <img class="imjhgsja" src="{{ request.user.img.url }}" alt="" srcset="">
+    </div>
+</div>
+
+<hr class="tm-hr-primary">
+<br>
+
+<form action="" novalidate method="post">{% csrf_token %}
+
+<div class="form-group">
+<small class="errorr">{{form.email.errors|striptags}}</small>
+{{ form.email }}
+</div>
+
+<div class="form-group">
+<small class="errorr">{{form.first_name.errors|striptags}}</small>
+{{ form.first_name }}
+</div>
+
+<div class="form-group">
+<small class="errorr">{{form.last_name.errors|striptags}}</small>
+{{ form.last_name }}
+</div>
+
+<div class="form-group">
+<small class="errorr">{{form.phone.errors|striptags}}</small>
+{{ form.phone }}
+</div>
+
+<div class="form-group">
+<small class="errorr">{{form.img.errors|striptags}}</small>
+{{ form.img }}
+</div>
+<div class="text-left">
+<button class="btn btn-primary tm-sm">Update</button>                        
+</div>  
+
+</form>
+{% endblock search %}
+
+{% block main %}
+{% endblock main %}
